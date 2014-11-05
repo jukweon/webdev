@@ -1,15 +1,10 @@
-<div class="picture1">
-  <img src="sandarapark.jpg" />
-</div>
-<div class="wrapper2">
-  <h1>My todo list for Quinn's Class</h1>
-  <% @lists.each do |item| %>
-  <p> <%= item %> </p>
+<h1>Juye's Todo Lists</h1>
+<% @lists.each do |line| %>
+  <p><%= line %></p>
   <% end %>
-  <form action='/' method='POST'>
-    <strong>New Task:</strong>
-    <input type='text' name='task' placeholder='task content' />
-    <input type='text' name='date' placeholder='due date' />
-    <input type='submit' value='Save'>
-  </form>
-</div>
+<form action='/' method='POST'>
+  <strong>New Task:</strong>
+  <input type='text' name='task' placeholder='task content' />
+  <input type='text' name='date' placeholder='due date' />
+  <input type='submit' value='Save'>
+</form>
