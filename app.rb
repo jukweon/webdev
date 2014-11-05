@@ -7,18 +7,30 @@ require 'bundler/setup'
 # load all of the gems in the gemfile
 Bundler.require
 
-# define a route for the root of the site
-get '/' do
-	# render the views/todo.erb template
-	file_contents = File.read('todo.txt')
-	@lists = file_contents.split("\n")
-	erb :todo
+require './models/TodoItem'
+
+if ENV['DATABASE_URL']
+  ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
+else
+  ActiveRecord::Base.establish_connection(
+    :adapter  => 'sqlite3',
+    :database => 'db/development.db',
+    :encoding => 'utf8'
+    )
 end
 
-require 'json'
+get '/' do
+  all_items = TodoItem.all
+  @task = all_items.order(:due_date)
+  erb :todo
+end
+
 post '/' do
-	JSON.pretty_generate params
-	File.open("todo.txt", "a") do |file|
-    file.puts "#{params[:task]} - #{params[:date]}"
-  end
+  TodoItem.create(description: params[:task], due_date: params[:date])
+  redirect '/'
+end
+
+post '/delete' do
+  TodoItem.find_by(description: params[:task]).destroy
+  redirect '/'
 end
