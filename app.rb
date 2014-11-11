@@ -30,10 +30,6 @@ post '/' do
   redirect '/'
 end
 
-post '/some_endpoint' do
-  return params[:some_constant_data]
-end
-
 post '/delete' do
   TodoItem.find_by(description: params[:task]).destroy
   redirect '/'
