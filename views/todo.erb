@@ -1,20 +1,17 @@
-<h1>Juye's Todo Listss</h1>
+<h1>Todo Lists</h1>
 <% @task.each do |item| %>
+<form action= '/<%=@user.name%>/delete/<%=item.id%>'>
+  <input type='submit' value='Delete'>
+</form>
   <%= item.description %>
   <% unless item.due_date.blank? %>
   <%= '- ' %>
   <%= item.due_date %>
-  <% end %>
 <% end %>
-<form action='/' method='POST'>
+<form action='/<%=@user.name%>' method='POST'>
   <strong>Insert a new task:</strong>
   <input type='text' name='task' placeholder='task content' />
   <input type='text' name='date' placeholder='due date' />
   <input type='submit' value='Save'>
 </form>
-
-<form action='/delete' method='POST'>
-  <strong>Delete a task:</strong>
-  <input type='text' name='task' placeholder='task content' />
-  <input type='submit' value='Save'>
-</form>
+<a href= '/'>Back</a>

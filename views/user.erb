@@ -1,0 +1,12 @@
+<h1>User Lists</h1>
+<% @user.each do |name| %>
+<form action ='/<%= user.name %>/delete'>
+  <input type ='submit' value='Delete'>
+</form>
+<a href='/<%= user.name %>'> <%= user.name %> </a>
+<% end %>
+<form action= '/' method= 'POST'>
+  <strong>Insert a new user:</strong>
+  <input type='text' name='name' placeholder='user name' />
+  <input type='submit' value='Save'>
+</form>
